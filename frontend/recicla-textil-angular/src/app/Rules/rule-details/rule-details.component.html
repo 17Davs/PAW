@@ -1,0 +1,14 @@
+<ng-container *ngIf="rule">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Point Rules Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ rule._id }}</p>
+      <p><strong>criteria:</strong> {{ rule.criteria }}</p>
+      <p><strong>Points:</strong> {{ rule.points }}</p>
+      <p><strong>Type:</strong> {{ rule.type }}</p>
+      <p><strong>Description:</strong> {{ rule.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

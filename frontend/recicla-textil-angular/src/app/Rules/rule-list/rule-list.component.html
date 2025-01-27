@@ -1,0 +1,12 @@
+<mat-grid-list cols="5" rowHeight="4:1">
+  <ng-container *ngFor="let rule of rules; index as i">
+    <mat-grid-tile>{{ rule._id }}</mat-grid-tile>
+    <mat-grid-tile>{{ rule.criteria }}</mat-grid-tile>
+    <mat-grid-tile>{{ rule.points }}</mat-grid-tile>
+    <mat-grid-tile>{{ rule.type }}</mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-button (click)="selectRule(i)">view</button>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>
+<app-rule-details [rule]="selectedRule"></app-rule-details>
