@@ -1,0 +1,35 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %>
+<%-include('../partials/nav2') %>
+
+<h3><a href="/donations/status">Status List</a></h3>
+
+<h1>Donations List</h1>
+
+<h3><a href="/donations/create">Create Donoation</a></h3>
+
+<% if(donations.length > 0) { %>
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Donor</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var i=0; i < donations.length; i++) { %>
+    <tr>
+      <td><%= donations[i]._id %></td>
+      <td><%= donations[i].donor.email %></td>
+      <td><%= donations[i].status.name %></td>
+      <td>
+        <a href="/donations/<%= donations[i]._id %>">View</a>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<div>No donations found.</div>
+<% } %> <%- include('../partials/foot') %>

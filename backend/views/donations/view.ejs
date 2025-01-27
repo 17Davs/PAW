@@ -1,0 +1,214 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/donations">Donations List</a></h3>
+<h1>Donation Details</h1>
+<table>
+  <tbody>
+    <tr>
+      <td>Donor</td>
+      <td>:</td>
+      <td><%= donation.donor.email %></td>
+    </tr>
+    <tr>
+      <td>Points</td>
+      <td>:</td>
+      <td><%= donation.points %></td>
+    </tr>
+
+    <tr>
+      <td>Pickup Point</td>
+      <td>:</td>
+      <td><%= donation.pickupPoint.name%></td>
+    </tr>
+
+    <tr>
+      <td>Receiving Entity</td>
+      <td>:</td>
+      <td><%= donation.receivingEntity.name %></td>
+    </tr>
+
+    <tr>
+      <td>Number of Items</td>
+      <td>:</td>
+      <td><%= donation.quantity %></td>
+    </tr>
+
+    <tr>
+      <td>Weight</td>
+      <td>:</td>
+      <td><%= donation.weight %></td>
+    </tr>
+
+    <td>Status</td>
+    <td>:</td>
+    <td>
+      <span id="currentStatus"><%= donation.status.name %></span>
+      <button id="editStatusButton">Edit</button>
+    </td>
+
+    <!-- hidden line for edit status selection -->
+    <tr id="editStatusRow" style="display: none">
+      <td colspan="3">
+        <form action="/donations/update/<%= donation._id %>" method="POST">
+          <label for="newStatus">New Status:</label>
+          <select name="status" id="newStatus">
+            <option value="noValue">---</option>
+            <% for(var i=0; i < statusList.length; i++) { %>
+            <option value="<%= statusList[i]._id%>">
+              <%= statusList[i].name%>
+            </option>
+            <% } %>
+          </select>
+          <button id="updateStatusButton" type="submit" disabled>
+            Update Status
+          </button>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<% if (donation.photoProof.image) { %>
+<div>
+  <h3>Photo Proof</h3>
+  <div>
+    <img src="<%= donation.photoProof.image %>" alt="Photo Proof" />
+  </div>
+  <% if (donation.photoProof.by) { %>
+  <div>Submitted by: <%= donation.photoProof.by.email %></div>
+  <% } %>
+  <div>
+    Date: <%= donation.photoProof.date ? donation.photoProof.date.toDateString()
+    : 'N/A' %>
+  </div>
+</div>
+<% } else { %>
+<button id="addPhotoButton">Add Photo</button>
+<% } %>
+
+<div
+  id="addPhotoDiv"
+  style="display: none; padding: 20px; border: 1px solid #ccc; margin-top: 20px"
+>
+  <h3>Add Photo Proof</h3>
+  <input
+    type="file"
+    id="imageInput"
+    accept="image/*"
+    style="margin-bottom: 10px"
+    size="4000000"
+  />
+
+  <button
+    id="uploadButton"
+    type="button"
+    data-doc-donation="<%= donation._id %>"
+    data-doc-employee="<%= user._id %>"
+    style="
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    "
+  >
+    Upload
+  </button>
+</div>
+
+<script>
+  /* Image */
+  var img = document.querySelector("img");
+
+  if (img) {
+    // Verifica se o elemento img existe
+    var maxDimension = 500;
+
+    if (img.width > maxDimension || img.height > maxDimension) {
+      var ratio = Math.min(maxDimension / img.width, maxDimension / img.height);
+
+      if (ratio < 1) {
+        img.width = img.width * ratio;
+        img.height = img.height * ratio;
+      }
+    }
+  }
+
+  /*status selection update */
+
+  document
+    .getElementById("editStatusButton")
+    .addEventListener("click", function () {
+      // show
+      document.getElementById("editStatusRow").style.display = "table-row";
+      this.style.display = "none";
+    });
+
+  var newStatusSelect = document.getElementById("newStatus"); // Alterado para newStatus
+  var updateStatusButton = document.getElementById("updateStatusButton");
+
+  newStatusSelect.addEventListener("change", function () {
+    // Alterado para newStatus
+    if (newStatusSelect.value !== "noValue") {
+      // Alterado para newStatus
+      updateStatusButton.removeAttribute("disabled");
+    } else {
+      updateStatusButton.setAttribute("disabled", "disabled");
+    }
+  });
+
+  /* Add button */
+  var addPhotoButton = document.getElementById("addPhotoButton");
+  if (addPhotoButton) {
+    addPhotoButton.addEventListener("click", function () {
+      // show upload div
+      var addPhotoDiv = document.getElementById("addPhotoDiv");
+      if (addPhotoDiv) {
+        addPhotoDiv.style.display = "block";
+      }
+    });
+  }
+
+  /* Upload button */
+  var uploadButton = document.getElementById("uploadButton");
+  if (uploadButton) {
+    uploadButton.addEventListener("click", function () {
+      var id = this.getAttribute("data-doc-donation");
+      var employee = this.getAttribute("data-doc-employee");
+      var fileInput = document.getElementById("imageInput");
+      if (
+        id &&
+        employee &&
+        fileInput &&
+        fileInput.files &&
+        fileInput.files[0]
+      ) {
+        var formData = new FormData();
+        formData.append("image", fileInput.files[0]);
+        formData.append("employee", employee);
+        fetch("/donations/" + id + "/upload-proof", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to upload image.");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            window.location.href = data.redirect;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to upload image.");
+          });
+      } else {
+        console.error("Missing required data for image upload.");
+        alert("Failed to upload image.");
+      }
+    });
+  }
+</script>
+<%- include('../partials/foot') %>

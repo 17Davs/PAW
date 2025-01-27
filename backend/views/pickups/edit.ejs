@@ -1,0 +1,124 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/pickups">Pickup Points</a></h3>
+<h3><a href="/pickups/<%= pickup._id %>">Go Back</a></h3>
+
+<h1>Edit Pickup</h1>
+<form id="pickupForm" action="/pickups/update/<%= pickup._id %>" method="post">
+  <table>
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= pickup.name %></td>
+      </tr>
+      <tr>
+        <td>Street</td>
+        <td>
+          <input
+            id="street"
+            type="text"
+            name="street"
+            value="<%= pickup.address.street %>"
+            required
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td>
+          <input
+            id="city"
+            type="text"
+            name="city"
+            value="<%= pickup.address.city %>"
+            required
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>Postal Code</td>
+        <td>
+          <input
+            id="postalCodePart1"
+            type="text"
+            name="postalCodePart1"
+            maxlength="4"
+            pattern="\d{4}"
+            value="<%= pickup.address.postalCode.split('-')[0] %>"
+            required
+          />
+          -
+          <input
+            id="postalCodePart2"
+            type="text"
+            name="postalCodePart2"
+            maxlength="3"
+            pattern="\d{3}"
+            value="<%= pickup.address.postalCode.split('-')[1] %>"
+            required
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>
+          <select id="active" name="active">
+            <option value="active" <% if (pickup.active) { %>
+              selected <% } %>>active
+            </option>
+            <option value="inactive" <% if (!pickup.active) { %>
+              selected <% } %>>inactive
+            </option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" id="submitButton" disabled>Save</button>
+</form>
+
+<script>
+  function checkFormValidity() {
+    console.log("primeiro");
+    var street = document.getElementById("street").value;
+    var city = document.getElementById("city").value;
+    var postalCodePart1 = document.getElementById("postalCodePart1").value;
+    var postalCodePart2 = document.getElementById("postalCodePart2").value;
+    var status = document.getElementById("active").value;
+
+    console.log("aqui");
+    if (
+      street !== "" &&
+      city !== "" &&
+      postalCodePart1 !== "" &&
+      postalCodePart2 !== "" &&
+      postalCodePart1.length === 4 &&
+      postalCodePart2.length === 3 &&
+      (status === "active" || status === "inactive")
+    ) {
+      document.getElementById("submitButton").removeAttribute("disabled");
+    } else {
+      document
+        .getElementById("submitButton")
+        .setAttribute("disabled", "disabled");
+    }
+  }
+
+  document
+    .getElementById("street")
+    .addEventListener("input", checkFormValidity);
+  document.getElementById("city").addEventListener("input", checkFormValidity);
+  document
+    .getElementById("postalCodePart1")
+    .addEventListener("input", checkFormValidity);
+  document
+    .getElementById("postalCodePart2")
+    .addEventListener("input", checkFormValidity);
+
+  document
+    .getElementById("active")
+    .addEventListener("change", checkFormValidity);
+</script>
+
+<%- include('../partials/foot') %>

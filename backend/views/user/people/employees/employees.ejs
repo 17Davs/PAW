@@ -1,0 +1,98 @@
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/nav') %>
+<%- include('../../../partials/nav2') %>
+
+<h3 class="empTitle">Employee List</h3>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <% if (user.admin) { %>
+            <% employees.forEach(employee => { %>
+                <% if (employee.active) { %>
+                    <tr>
+                        <td><%= employee.username %></td>
+                        <td><%= employee.email %></td>
+                        <% if(employee.admin) { %>
+                            <td colspan="4">Admin</td>
+                        <% } else { %>
+                            <td>Employee</td>
+                            <td><a href="/user/employees/<%= employee._id %>">Edit</a></td>
+                            <td><a href="#" class="delete" data-doc="<%= employee._id %>">Remove</a></td>
+                            <td><a href="#" class="makeAdmin" data-doc="<%= employee._id %>">Make Admin</a></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            <% }) %>
+        <% } else { %>
+            <% employees.forEach(employee => { %>
+                <% if (employee.active) { %>
+                    <tr>
+                        <td><%= employee.username %></td>
+                        <td><%= employee.email %></td>
+                        <% if(employee.admin) { %>
+                            <td>Admin</td>
+                        <% } else { %>
+                            <td>Employee</td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            <% }) %>
+        <% } %>
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const trashcans = document.querySelectorAll('a.delete');
+        const makeAdmins = document.querySelectorAll('a.makeAdmin');
+ 
+        trashcans.forEach(trashcan => {
+            trashcan.addEventListener('click', (e) => {
+                const endpoint = `/user/employees/u/${trashcan.dataset.doc}`;
+ 
+                fetch(endpoint, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            active: false
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => window.location.href = data.redirect)
+                    .catch(err => console.log(err));
+            });
+        });
+ 
+        makeAdmins.forEach(makeAdmin => {
+    makeAdmin.addEventListener('click', async (e) => {
+        const endpoint = `/user/employees/u/${makeAdmin.dataset.doc}`;
+ 
+        await fetch(endpoint, {
+                method: 'POST',
+                body: JSON.stringify({
+                    admin: true
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.reload();
+            })
+            .catch(err => console.log(err));
+    });
+});
+ 
+    });
+</script>
+<%- include('../../../partials/foot') %>

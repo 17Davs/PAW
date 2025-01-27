@@ -1,0 +1,21 @@
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/nav') %>
+<%- include('../../../partials/nav2') %>
+
+<h3 class="empTitle">Entity List</h3>
+
+<div class="list-group listSpace">
+    <% if (entities.length > 0) { %>
+        <% entities.forEach(entity => { %>
+            <% if (entity.active == true) { %>
+                <a href="/user/entities/<%= entity._id %>" class="list-group-item list-group-item-action"><%= entity.name %></a>
+            <% } %>
+        <% }) %>
+    <% } else { %>
+        <a class="list-group-item list-group-item-action disabled">Não existem entidades registadas.</a>
+    <% } %>
+</div>
+
+<a href="/user/entities/create" class="btn btn-primary">Adicionar</a>
+
+<%- include('../../../partials/foot') %>

@@ -1,0 +1,36 @@
+<div class="container-xxl mt-3 my-md-4" style="
+    display: grid;
+    grid-template-areas: sidebar main;
+    grid-template-columns: 1fr 5fr;
+    gap: 1.5rem;
+  " id="side">
+    <aside class="bd-sidebar">
+        <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar"
+            aria-labelledby="bdSidebarOffcanvasLabel">
+            <div class="offcanvas-header border-bottom">
+                <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse
+                </h5>
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="offcanvas" aria-label="Close"
+                    data-bs-target="#bdSidebar"></button>
+            </div>
+            <div class="offcanvas-body">
+                <nav class="bd-links w-100" id="bd-docs-nav"
+                    aria-label="Docs navigation">
+                    <div class="list-group">
+                      <a href="/user/employees" class="list-group-item list-group-item-action">EMPLOYEES</a>
+                      <a href="/user/entities" class="list-group-item list-group-item-action">ENTITIES</a>
+                      <a href="/user/donators" class="list-group-item list-group-item-action">DONATORS</a>
+                      <a href="/donations" class="list-group-item list-group-item-action">DONATIONS</a>
+                      <a href="/points" class="list-group-item list-group-item-action">POINTS</a>
+                      <a href="/pickups" class="list-group-item list-group-item-action">PICKUPS</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </aside>
+    <div class="order-1" style="
+      grid-template-areas: 'intro toc' 'content toc';
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 4fr 1fr;
+    ">

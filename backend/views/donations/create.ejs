@@ -1,0 +1,103 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/donations">Donations List</a></h3>
+
+<h1>Create Donation</h1>
+<form id="donationForm" action="/donations/save" method="post">
+  <table>
+    <tbody>
+      <tr>
+        <td>Donor</td>
+        <td>
+          <select id="donor" name="donor" required>
+            <option value="noValue">---</option>
+            <% for(var i=0; i < donors.length; i++) { %>
+            <option value="<%= donors[i]._id%>"><%= donors[i].email%></option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Receiving Entity</td>
+        <td>
+          <select id="entity" name="entity" required>
+            <option value="noValue">---</option>
+            <% for(var i=0; i < entities.length; i++) { %>
+            <option value="<%= entities[i]._id%>">
+              <%= entities[i].name%>"
+            </option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Pickup point</td>
+        <td>
+          <select id="pickup" name="pickup" required>
+            <option value="noValue">---</option>
+            <% for(var i=0; i < pickups.length; i++) { %>
+            <option value="<%= pickups[i]._id%>"><%= pickups[i].name%></option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Number of Items (quantity)</td>
+        <td>
+          <input id="quantity" type="number" name="quantity" min="0" required />
+        </td>
+      </tr>
+      <tr>
+        <td>Total Weight</td>
+        <td>
+          <input id="weight" type="number" name="weight" min="0" required />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" id="submitButton" disabled>CREATE</button>
+</form>
+<script>
+  function checkFormValidity() {
+    var donor = document.getElementById("donor").value;
+    var quantity = document.getElementById("quantity").value;
+    var weight = document.getElementById("weight").value;
+    var entity = document.getElementById("entity").value;
+    var pickup = document.getElementById("pickup").value;
+
+    if (
+      donor !== "noValue" &&
+      quantity !== "" &&
+      quantity > 0 &&
+      weight !== "" &&
+      weight > 0 &&
+      entity !== "noValue" &&
+      pickup !== "noValue"
+    ) {
+      document.getElementById("submitButton").removeAttribute("disabled");
+    } else {
+      document
+        .getElementById("submitButton")
+        .setAttribute("disabled", "disabled");
+    }
+  }
+
+  document
+    .getElementById("donor")
+    .addEventListener("change", checkFormValidity);
+  document
+    .getElementById("quantity")
+    .addEventListener("input", checkFormValidity);
+  document
+    .getElementById("weight")
+    .addEventListener("input", checkFormValidity);
+  document
+    .getElementById("entity")
+    .addEventListener("change", checkFormValidity);
+  document
+    .getElementById("pickup")
+    .addEventListener("change", checkFormValidity);
+</script>
+
+<%- include('../partials/foot') %>

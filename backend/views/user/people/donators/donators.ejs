@@ -1,0 +1,21 @@
+<%- include('../../../partials/head') %>
+<%- include('../../../partials/nav') %>
+<%- include('../../../partials/nav2') %>
+
+<h3 class="empTitle">Donator List</h3>
+
+<div class="list-group listSpace">
+    <% if (donators.length > 0) { %>
+        <% donators.forEach(donator => { %>
+            <% if (donator.active == true) { %>
+                <a href="/user/donators/<%= donator._id %>" class="list-group-item list-group-item-action"><%= donator.name %></a>
+            <% } %>
+        <% }) %>
+    <% } else { %>
+        <a class="list-group-item list-group-item-action disabled">Não existem doadores registados.</a>
+    <% } %>
+</div>
+
+<a href="/user/donators/create" class="btn btn-primary">Adicionar</a>
+
+<%- include('../../../partials/foot') %>

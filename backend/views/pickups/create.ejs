@@ -1,0 +1,93 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/pickups">Pickup Points</a></h3>
+
+<h1>Create Pickup Point</h1>
+<form id="pickupForm" action="/pickups/save" method="post">
+  <table>
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td>
+          <input id="name" type="text" name="name" required />
+        </td>
+      </tr>
+      <tr>
+        <td>Street</td>
+        <td>
+          <input id="street" type="text" name="street" required />
+        </td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td>
+          <input id="city" type="text" name="city" required />
+        </td>
+      </tr>
+      <tr>
+        <td>Postal Code</td>
+        <td>
+          <input
+            id="postalCodePart1"
+            type="text"
+            name="postalCodePart1"
+            maxlength="4"
+            pattern="\d{4}"
+            required
+          />
+          -
+          <input
+            id="postalCodePart2"
+            type="text"
+            name="postalCodePart2"
+            maxlength="3"
+            pattern="\d{3}"
+            required
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" id="submitButton" disabled>Save</button>
+</form>
+
+<script>
+  function checkFormValidity() {
+    var name = document.getElementById("name").value;
+    var street = document.getElementById("street").value;
+    var city = document.getElementById("city").value;
+    var postalCodePart1 = document.getElementById("postalCodePart1").value;
+    var postalCodePart2 = document.getElementById("postalCodePart2").value;
+
+    if (
+      name !== "" &&
+      street !== "" &&
+      city !== "" &&
+      postalCodePart1 !== "" &&
+      postalCodePart2 !== "" &&
+      postalCodePart1.length === 4 &&
+      postalCodePart2.length === 3
+    ) {
+      document.getElementById("submitButton").removeAttribute("disabled");
+    } else {
+      document
+        .getElementById("submitButton")
+        .setAttribute("disabled", "disabled");
+    }
+  }
+
+  document.getElementById("name").addEventListener("input", checkFormValidity);
+  document
+    .getElementById("street")
+    .addEventListener("input", checkFormValidity);
+  document.getElementById("city").addEventListener("input", checkFormValidity);
+  document
+    .getElementById("postalCodePart1")
+    .addEventListener("input", checkFormValidity);
+  document
+    .getElementById("postalCodePart2")
+    .addEventListener("input", checkFormValidity);
+</script>
+
+<%- include('../partials/foot') %>

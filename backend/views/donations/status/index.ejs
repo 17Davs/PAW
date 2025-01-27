@@ -1,0 +1,143 @@
+<%- include('../../partials/head') %> <%- include('../../partials/nav') %>
+<%-include('../../partials/nav2') %>
+
+<h3><a href="/donations">Donations List</a></h3>
+
+<h1>Donations Status</h1>
+<h3><a href="/donations/status/create">Create Status</a></h3>
+<% if(status.length > 0) { %>
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>Status Name</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var i=0; i < status.length; i++) { %>
+    <tr>
+      <td><%= status[i].name %></td>
+      <td>
+        <% if (status[i].active) { %> active <% } else { %> inactive <% } %>
+      </td>
+      <td>
+        <a href="/donations/status/<%= status[i]._id %>">EDIT</a>
+        <button
+          class="btn btn-primary"
+          id="deleteButton"
+          data-doc="<%= status[i]._id%>"
+          type="button"
+        >
+          DELETE
+        </button>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<div>No status found.</div>
+<% } %>
+
+<div id="confirmationModal">
+  <div class="modal-content">
+    <p>Are you sure you want to delete this status?</p>
+    <button id="confirmDelete">Yes</button>
+    <button id="cancelDelete">No</button>
+  </div>
+</div>
+<script>
+  document.querySelectorAll("#deleteButton").forEach((button) => {
+    button.addEventListener("click", function () {
+      var statusId = this.getAttribute("data-doc");
+
+      // show confirmation modal
+      document.getElementById("confirmationModal").style.display = "block";
+
+      // confirm deletion
+      document
+        .getElementById("confirmDelete")
+        .addEventListener("click", function () {
+          fetch("/donations/status/" + statusId + "/check", {
+            method: "GET",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to check status");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data);
+              console.log(data);
+              console.log(data);
+
+              if (data.length === 0) {
+                // No donations associated, safe to delete the status
+                deleteStatus(statusId);
+              } else {
+                // Donations associated, set status to inactive
+                updateStatus(statusId);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              console.log("Failed to check status");
+            });
+        });
+
+      // cancel deletion
+      document
+        .getElementById("cancelDelete")
+        .addEventListener("click", function () {
+          // close confirmation modal
+          document.getElementById("confirmationModal").style.display = "none";
+        });
+    });
+  });
+
+  function deleteStatus(statusId) {
+    fetch("/donations/status/" + statusId, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete status");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        window.location.href = data.redirect;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Failed to delete status");
+      });
+  }
+
+  function updateStatus(statusId) {
+    fetch("/donations/status/" + statusId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ active: false }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update status");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        window.location.href = data.redirect;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Failed to update status");
+      });
+  }
+</script>
+
+<%- include('../../partials/foot') %>

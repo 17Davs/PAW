@@ -1,0 +1,84 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/points">Rules List</a></h3>
+<h1>Rule Details</h1>
+<table>
+  <tbody>
+    <tr>
+      <td>Rule For</td>
+      <td>:</td>
+      <td><%= rule.criteria %></td>
+    </tr>
+    <tr>
+      <td>Points</td>
+      <td>:</td>
+      <td><%= rule.points %></td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>:</td>
+      <td><%= rule.description %></td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>:</td>
+      <td><%= rule.type %></td>
+    </tr>
+  </tbody>
+</table>
+<h3><a href="/points/rule/edit/<%= rule._id%>">EDIT</a></h3>
+
+<!-- <button id="deleteButton" data-doc="<%= rule._id %>" type="button">
+  DELETE
+</button>
+
+<div id="confirmationModal">
+  <div class="modal-content">
+    <p>Are you sure you want to delete this rule?</p>
+    <button id="confirmDelete">Yes</button>
+    <button id="cancelDelete">No</button>
+  </div>
+</div>
+
+<script>
+  document
+    .getElementById("deleteButton")
+    .addEventListener("click", function () {
+      var ruleId = this.getAttribute("data-doc");
+
+      // show
+      document.getElementById("confirmationModal").style.display = "block";
+
+      // confirm
+      document
+        .getElementById("confirmDelete")
+        .addEventListener("click", function () {
+          fetch("/points/rule/" + ruleId, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to delete rule");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              window.location.href = data.redirect;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Failed to delete rule");
+            });
+        });
+
+      document
+        .getElementById("cancelDelete")
+        .addEventListener("click", function () {
+          // close
+          document.getElementById("confirmationModal").style.display = "none";
+        });
+    });
+</script> -->
+
+<%- include('../partials/foot') %>

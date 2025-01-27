@@ -1,0 +1,33 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h1>Point System Rules List</h1>
+<!-- <h3><a href="/points/rule/create">Create Rule</a></h3> -->
+<% if(rules.length > 0) { %>
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>Rule For</th>
+      <th>Points</th>
+      <th>Rule Type</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var i=0; i < rules.length; i++) { %>
+    <tr>
+      <td><%= rules[i].criteria %></td>
+      <td><%= rules[i].points %></td>
+      <td><%= rules[i].type %></td>
+      <td><%= rules[i].description %></td>
+      <td>
+        <a href="/points/rule/<%= rules[i]._id %>">View</a>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<div>No rules found.</div>
+<% } %> <%- include('../partials/foot') %>

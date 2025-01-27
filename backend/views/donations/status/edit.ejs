@@ -1,0 +1,36 @@
+<%- include('../../partials/head') %> <%- include('../../partials/nav') %> <%-
+include('../../partials/nav2') %>
+
+<h3><a href="/donations/status">Status List</a></h3>
+
+<h1>Edit status</h1>
+<form
+  id="statusForm"
+  action="/donations/status/<%= status._id %>"
+  method="post"
+>
+  <table>
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= status.name %></td>
+      </tr>
+      <tr>
+        <td>is Active</td>
+        <td>
+          <select id="active" name="active">
+            <option value="active" <% if (status.active) { %>
+              selected <% } %>>yes
+            </option>
+            <option value="inactive" <% if (!status.active) { %>
+              selected <% } %>>no
+            </option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" id="submitButton">Save</button>
+</form>
+
+<%- include('../../partials/foot') %>

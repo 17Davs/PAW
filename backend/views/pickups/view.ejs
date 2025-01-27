@@ -1,0 +1,136 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/pickups">Pickup Points</a></h3>
+<h1>Pickup Point Details</h1>
+<table>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>:</td>
+      <td><%= pickup.name %></td>
+    </tr>
+    <tr>
+      <td>Street</td>
+      <td>:</td>
+      <td><%= pickup.address.street %></td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td>:</td>
+      <td><%= pickup.address.city %></td>
+    </tr>
+    <tr>
+      <td>Postal Code</td>
+      <td>:</td>
+      <td><%= pickup.address.postalCode %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>:</td>
+      <td><% if (pickup.active) { %> active <% } else { %> inactive <% } %></td>
+    </tr>
+  </tbody>
+</table>
+<h3><a href="/pickups/edit/<%= pickup._id%>">EDIT</a></h3>
+
+<button id="deleteButton" data-doc="<%= pickup._id%>" type="button">
+  DELETE
+</button>
+
+<div id="confirmationModal">
+  <div class="modal-content">
+    <p>Are you sure you want to delete this pickup?</p>
+    <button id="confirmDelete">Yes</button>
+    <button id="cancelDelete">No</button>
+  </div>
+</div>
+
+<script>
+  document
+    .getElementById("deleteButton")
+    .addEventListener("click", function () {
+      var pickupId = this.getAttribute("data-doc");
+
+      // show
+      document.getElementById("confirmationModal").style.display = "block";
+
+      // confirm
+      document
+        .getElementById("confirmDelete")
+        .addEventListener("click", function () {
+          // Check if there are any donations associated with this pickup
+          fetch("/pickups/" + pickupId + "/donations", {
+            method: "GET",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to fetch donations for pickup");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data.length === 0) {
+                // No donations associated, safe to delete the pickup
+                deletePickup(pickupId);
+              } else {
+                // Donations associated, set pickup status to inactive
+                updatePickupStatus(pickupId);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Failed to check donations for pickup");
+            });
+        });
+
+      document
+        .getElementById("cancelDelete")
+        .addEventListener("click", function () {
+          // close
+          document.getElementById("confirmationModal").style.display = "none";
+        });
+    });
+
+  function deletePickup(pickupId) {
+    fetch("/pickups/" + pickupId, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete pickup");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        window.location.href = data.redirect;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Failed to delete pickup");
+      });
+  }
+
+  function updatePickupStatus(pickupId) {
+    fetch("/pickups/" + pickupId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ active: false }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update pickup status");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        window.location.href = data.redirect;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        console.log("Failed to update pickup status");
+      });
+  }
+</script>

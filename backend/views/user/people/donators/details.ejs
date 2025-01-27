@@ -1,0 +1,41 @@
+<%- include('../../../partials/head') %> <%- include('../../../partials/nav') %>
+<%- include('../../../partials/nav2') %>
+
+<div>
+  <p>Name: <%= donator.name %></p>
+
+  <p>Email: <%= donator.email %></p>
+
+  <p>Pontos: <%= donator.points %></p>
+
+  <p>credit: <%= donator.credit %></p>
+  <a class="btn btn-primary" href="/user/donators/<%= donator._id %>/edit"
+    >Edit</a
+  >
+
+  <a href="#" class="btn btn-danger delete" data-doc="<%= donator._id %>"
+    >Remove</a
+  >
+</div>
+
+<script>
+  const trashcan = document.querySelector("a.delete");
+
+  trashcan.addEventListener("click", (e) => {
+    const endpoint = `/user/donators/u/${trashcan.dataset.doc}`;
+
+    fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify({
+        active: false,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => (window.location.href = data.redirect))
+      .catch((err) => console.log(err));
+  });
+</script>
+<%- include('../../../partials/foot') %>

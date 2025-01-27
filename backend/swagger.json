@@ -1,0 +1,840 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API documentation for Donation, Donator, Entity, Pickup, and Rules services",
+    "version": "1.0.0",
+    "title": "Donation API"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/donations": {
+      "get": {
+        "summary": "Get all donations",
+        "tags": ["Donation"],
+        "responses": {
+          "200": {
+            "description": "A list of donations",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Donation"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new donation",
+        "tags": ["Donation"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Donation object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Donation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Donation created",
+            "schema": {
+              "$ref": "#/definitions/Donation"
+            }
+          }
+        }
+      }
+    },
+    "/donations/{donationId}": {
+      "get": {
+        "summary": "Get donation by ID",
+        "tags": ["Donation"],
+        "parameters": [
+          {
+            "name": "donationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Donation details",
+            "schema": {
+              "$ref": "#/definitions/Donation"
+            }
+          },
+          "404": {
+            "description": "Donation not found"
+          }
+        }
+      }
+    },
+    "/donators": {
+      "get": {
+        "summary": "Get all donators",
+        "tags": ["Donator"],
+        "responses": {
+          "200": {
+            "description": "A list of donators",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Donator"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new donator",
+        "tags": ["Donator"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Donator object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Donator created",
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          }
+        }
+      }
+    },
+    "/donators/{donatorId}": {
+      "get": {
+        "summary": "Get donator by ID",
+        "tags": ["Donator"],
+        "parameters": [
+          {
+            "name": "donatorId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Donator details",
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          },
+          "404": {
+            "description": "Donator not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing donator",
+        "tags": ["Donator"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Donator object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Donator updated",
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing donator",
+        "tags": ["Donator"],
+        "responses": {
+          "200": {
+            "description": "Donator deleted",
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          }
+        }
+      }
+    },
+    "/donators/{donatorId}/donations": {
+      "get": {
+        "summary": "Get donations made by a specific donator",
+        "tags": ["Donator"],
+        "parameters": [
+          {
+            "name": "donatorId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of donations",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Donation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/donators/{donatorId}/convertPoints/{qtd}": {
+      "get": {
+        "summary": "Convert donator's points to credit",
+        "tags": ["Donator"],
+        "parameters": [
+          {
+            "name": "donatorId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "qtd",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Points converted",
+            "schema": {
+              "$ref": "#/definitions/Donator"
+            }
+          },
+          "400": {
+            "description": "Invalid quantity or insufficient points"
+          }
+        }
+      }
+    },
+    "/entities": {
+      "get": {
+        "summary": "Get all entities",
+        "tags": ["Entity"],
+        "responses": {
+          "200": {
+            "description": "A list of entities",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Entity"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new entity",
+        "tags": ["Entity"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entity object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity created",
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            }
+          }
+        }
+      }
+    },
+    "/entities/{entityId}": {
+      "get": {
+        "summary": "Get entity by ID",
+        "tags": ["Entity"],
+        "parameters": [
+          {
+            "name": "entityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity details",
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            }
+          },
+          "404": {
+            "description": "Entity not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing entity",
+        "tags": ["Entity"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entity object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity updated",
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing entity",
+        "tags": ["Entity"],
+        "responses": {
+          "200": {
+            "description": "Entity deleted",
+            "schema": {
+              "$ref": "#/definitions/Entity"
+            }
+          }
+        }
+      }
+    },
+    "/entities/{entityId}/donations": {
+      "get": {
+        "summary": "Get donations received by a specific entity",
+        "tags": ["Entity"],
+        "parameters": [
+          {
+            "name": "entityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of donations",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Donation"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pickups": {
+      "get": {
+        "summary": "Get all pickups",
+        "operationId": "getAllPickups",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pickup"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/pickups/{id}": {
+      "get": {
+        "summary": "Get pickup by ID",
+        "operationId": "getPickupById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pickup to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pickup"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pickup not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/rules": {
+      "get": {
+        "summary": "Get all rules",
+        "operationId": "getAllRules",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rule"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/rules/{id}": {
+      "get": {
+        "summary": "Get rule by ID",
+        "operationId": "getRuleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of rule to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rule not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/auth/login/donator": {
+      "post": {
+        "summary": "Login function for Donator",
+        "description": "Authenticate a Donator.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Donator credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DonatorLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Donator not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/auth/register/donator": {
+      "post": {
+        "summary": "Register function for Donator",
+        "description": "Register a new Donator.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Donator details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DonatorRegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "400": {
+            "description": "Email already exists"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/auth/logout/donator": {
+      "post": {
+        "summary": "Logout function for Donator",
+        "description": "Logout a Donator.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/auth/login/entity": {
+      "post": {
+        "summary": "Login function for Entity",
+        "description": "Authenticate an Entity.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entity credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EntityLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Entity not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/auth/register/entity": {
+      "post": {
+        "summary": "Register function for Entity",
+        "description": "Register a new Entity.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Entity details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EntityRegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "400": {
+            "description": "Email already exists"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/auth/logout/entity": {
+      "post": {
+        "summary": "Logout function for Entity",
+        "description": "Logout an Entity.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Donation": {
+      "type": "object",
+      "properties": {
+        "donor": {
+          "type": "string",
+          "format": "objectId",
+          "ref": "Donator",
+          "required": true
+        },
+        "points": {
+          "type": "number",
+          "required": true,
+          "default": 0
+        },
+        "pickupPoint": {
+          "type": "string",
+          "format": "objectId",
+          "ref": "Pickup"
+        },
+        "receivingEntity": {
+          "type": "string",
+          "format": "objectId",
+          "ref": "Entity",
+          "required": true
+        },
+        "quantity": {
+          "type": "number",
+          "required": true
+        },
+        "weight": {
+          "type": "number",
+          "required": true
+        },
+        "status": {
+          "type": "string",
+          "format": "objectId",
+          "ref": "DonationStatus",
+          "required": true,
+          "default": "6633e72dea92f889a918f01d"
+        },
+        "photoProof": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string"
+            },
+            "by": {
+              "type": "string",
+              "format": "objectId",
+              "ref": "User"
+            },
+            "date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Donator": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required": [true, "Username is required!"]
+        },
+        "email": {
+          "type": "string",
+          "required": [true, "Email is required!"],
+          "unique": true,
+          "lowercase": true,
+          "validate": ["isEmail", "Please enter a valid email."]
+        },
+        "points": {
+          "type": "integer",
+          "required": true,
+          "default": 0
+        },
+        "credit": {
+          "type": "integer",
+          "default": 0
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "timestamps": true,
+      "required": ["name", "email", "pass", "points"]
+    },
+    "Entity": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "required": [true, "Username is required!"]
+        },
+        "email": {
+          "type": "string",
+          "required": [true, "Email is required!"],
+          "unique": true,
+          "lowercase": true,
+          "validate": ["isEmail", "Please enter a valid email."]
+        },
+        "description": {
+          "type": "string",
+          "required": [true, "Description is required!"],
+          "minLength": 10,
+          "maxLength": 100
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "timestamps": true,
+      "pre": {
+        "save": {
+          "function": "async function(next) { const salt = await bcrypt.genSalt(); this.pass = await bcrypt.hash(this.pass, salt); next(); }"
+        }
+      }
+    },
+    "Pickup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "unique": true,
+          "required": [true, "Name is required!"]
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {
+              "type": "string",
+              "required": [true, "Street is required!"]
+            },
+            "city": {
+              "type": "string",
+              "required": [true, "City is required!"]
+            },
+            "postalCode": {
+              "type": "string",
+              "required": [true, "Postal Code is required!"],
+              "pattern": "^\\d{4}-\\d{3}$",
+              "errorMessage": "Postal Code must be in the format 1234-567."
+            }
+          },
+          "required": ["street", "city", "postalCode"]
+        },
+        "active": {
+          "type": "boolean",
+          "default": true,
+          "required": [true, "Active status is required!"]
+        }
+      },
+      "timestamps": true
+    },
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "criteria": {
+          "type": "string",
+          "unique": true,
+          "required": [true, "Criteria is required!"]
+        },
+        "points": {
+          "type": "number",
+          "validate": {
+            "validator": {
+              "function": "function (value) { return value > 0; }",
+              "errorMessage": "Points must be greater than zero."
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "required": [true, "Type is required!"]
+        },
+        "description": {
+          "type": "string",
+          "required": [true, "Description is required!"]
+        }
+      },
+      "timestamps": true
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %>
+<%-include('../partials/nav2') %>
+
+<h1>Pickup Points</h1>
+<h3><a href="/pickups/create">Create Pickup</a></h3>
+<% if(pickups.length > 0) { %>
+<table class="list-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>PostalCode</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var i=0; i < pickups.length; i++) { %>
+    <tr>
+      <td><%= pickups[i].name %></td>
+      <td><%= pickups[i].address.street %></td>
+      <td><%= pickups[i].address.city %></td>
+      <td><%= pickups[i].address.postalCode %></td>
+      <td>
+        <% if (pickups[i].active) { %> active <% } else { %> inactive <% } %>
+      </td>
+      <td>
+        <a href="/pickups/<%= pickups[i]._id %>">View</a>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<div>No pickup points found.</div>
+<% } %> <%- include('../partials/foot') %>

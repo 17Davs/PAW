@@ -1,0 +1,225 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %>
+<%-include('../partials/nav2') %>
+<div class="order-1 light-mode">
+  <div class="container mt-3">
+    <div class="row">
+      <!-- Weekly Section -->
+      <div class="col-md-12 mb-3">
+        <div class="report-section bg-light rounded p-3">
+          <h2>Weekly Report</h2>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="report-box rounded p-3">
+                <h6>New Donations</h6>
+                <p id="donationsCount">0</p>
+                <button
+                  class="btn btn-primary"
+                  onclick="window.location.href='/donations'"
+                >
+                  View
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="report-box rounded p-3">
+                <h6>New Donors</h6>
+                <p id="entitiesCount">0</p>
+                <button
+                  class="btn btn-primary"
+                  onclick="window.location.href='/user/donators'"
+                >
+                  View
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="report-box rounded p-3">
+                <h6>New Users</h6>
+                <p id="usersCount">0</p>
+                <button
+                  class="btn btn-primary"
+                  onclick="window.location.href='/user/employees'"
+                >
+                  View
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Overview Section -->
+      <div class="col-md-12">
+        <div class="overview-section bg-light rounded p-3">
+          <h2>Overview</h2>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="overview-box rounded p-3">
+                <h6>Donations</h6>
+                <p><%= donations.length %></p>
+                <button
+                class="btn btn-primary"
+                onclick="window.location.href='/donations'"
+              >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="overview-box rounded p-3">
+                <h6>Entities</h6>
+                <p><%= entities.length %></p>
+                <button
+                class="btn btn-primary"
+                onclick="window.location.href='/user/entities'"
+              >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="overview-box rounded p-3">
+                <h6>Pickup Points</h6>
+                <p><%= pickups.length %></p>
+                <button
+                class="btn btn-primary"
+                onclick="window.location.href='/pickups'"
+              >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="overview-box rounded p-3">
+                <h6>Point System Rules</h6>
+                <p><%= rules.length %></p>
+                <button
+                class="btn btn-primary"
+                onclick="window.location.href='/points'"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Table and canva -->
+        <div class="overview-section bg-light rounded p-3">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="p-3 bg-white rounded">
+                <h3>Recent Donations</h3>
+                <table class="table overview-table">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Donor</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0; i < donations.length && i<5; i++) { %>
+                    <tr>
+                      <td><%= donations[i]._id %></td>
+                      <td><%= donations[i].donor.email %></td>
+                      <td><%= donations[i].status.name %></td>
+                      <td>
+                        <a href="/donations/<%= donations[i]._id %>">View</a>
+                      </td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 bg-white rounded">
+                <h3>Average Data</h3>
+                <div class="chart-container">
+                  <canvas id="myChart" width="400" height="300"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script>
+  var donations = <%- JSON.stringify(donations) %>;
+  var donors = <%- JSON.stringify(donors) %>;
+  var users = <%- JSON.stringify(users) %>;
+
+            // calculate current week
+      var startOfWeek = moment().startOf('week').format('YYYY-MM-DD');
+      var endOfWeek = moment().endOf('week').format('YYYY-MM-DD');
+
+      // filter by date
+      var donationsThisWeek = donations.filter(function(donation) {
+          return moment(donation.createdAt).isBetween(startOfWeek, endOfWeek);
+      });
+      var donorsThisWeek = donors.filter(function(donors) {
+        return moment(donors.createdAt).isBetween(startOfWeek, endOfWeek);
+    });
+    var usersThisWeek = users.filter(function(users) {
+      return moment(users.createdAt).isBetween(startOfWeek, endOfWeek);
+  });
+
+  // Count the number of donations, donors, and users for the week
+    var numDonationsThisWeek = donationsThisWeek.length;
+    var numDonorsThisWeek = donorsThisWeek.length;
+    var numUsersThisWeek = usersThisWeek.length;
+
+  // pass the information to the html
+    document.querySelector('#donationsCount').innerText = numDonationsThisWeek;
+    document.querySelector('#entitiesCount').innerText = numDonorsThisWeek;
+    document.querySelector('#usersCount').innerText = numUsersThisWeek;
+
+    // averages
+    var totalWeight = 0;
+    var totalQuantity = 0;
+    for (var i = 0; i < donations.length; i++) {
+      totalWeight += donations[i].weight;
+      totalQuantity += donations[i].quantity;
+    }
+    var averageWeight = totalWeight / donations.length;
+    var averageQuantity = totalQuantity / donations.length;
+
+    // graphic
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Average Weight', 'Average Items'],
+            datasets: [{
+                    label: "Average Number Of Items",
+                    data: [0, averageQuantity],
+                    backgroundColor: "rgba(40, 167, 69, 0.2)", // Verde claro
+                    borderColor: "rgba(40, 167, 69, 1)", // Verde
+                    borderWidth: 1,
+                },
+                {
+                    label: "Average weight (Kg)",
+                    data: [averageWeight, 0],
+                    backgroundColor: "rgba(169, 169, 169, 0.2)", // Cinza claro
+                    borderColor: "rgba(169, 169, 169, 1)", // Cinza
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 20,
+                    right: 20,
+                    top: 20,
+                    bottom: 20
+                }
+            }
+        }
+    });
+</script>
+<%- include('../partials/foot') %>

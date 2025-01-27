@@ -1,0 +1,37 @@
+<%- include('../../partials/head') %> <%- include('../../partials/nav') %> <%-
+include('../../partials/nav2') %>
+
+<h3><a href="/donations/status">Status List</a></h3>
+
+<h1>Create Donation Status</h1>
+<form id="statusForm" action="/donations/status/save" method="post">
+  <table>
+    <tbody>
+      <tr>
+        <td>Status Name</td>
+        <td>
+          <input id="name" type="text" name="name" required />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" id="submitButton" disabled>Save</button>
+</form>
+
+<script>
+  function checkFormValidity() {
+    var name = document.getElementById("name").value;
+
+    if (name !== "") {
+      document.getElementById("submitButton").removeAttribute("disabled");
+    } else {
+      document
+        .getElementById("submitButton")
+        .setAttribute("disabled", "disabled");
+    }
+  }
+
+  document.getElementById("name").addEventListener("input", checkFormValidity);
+</script>
+
+<%- include('../../partials/foot') %>

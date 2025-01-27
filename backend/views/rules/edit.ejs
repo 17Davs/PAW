@@ -1,0 +1,84 @@
+<%- include('../partials/head') %> <%- include('../partials/nav') %> <%-
+include('../partials/nav2') %>
+
+<h3><a href="/points">Rules List</a></h3>
+<h3><a href="/points/rule/<%= rule._id %>">Go Back</a></h3>
+
+<h1>Edit Rule</h1>
+<form id="ruleForm" action="/points/rule/update/<%= rule._id %>" method="post">
+  <table>
+    <tbody>
+      <tr>
+        <td>Rule for</td>
+        <td>
+          <%= rule.criteria %>
+        </td>
+      </tr>
+      <tr>
+        <td>Points per unit</td>
+        <td>
+          <input
+            id="points"
+            type="number"
+            name="points"
+            value="<%= rule.points %>"
+          />
+        </td>
+      </tr>
+        <tr>
+          <td>Type</td>
+          <td>
+            <select id="type" name="type">
+              <option value="pointsAssignment" <% if (rule.type === 'pointsAssignment') { %> selected <% } %>>Points Assignment</option>
+              <option value="pointsConversion" <% if (rule.type === 'pointsConversion') { %> selected <% } %>>Points Conversion</option>
+            </select>
+          </td>
+        </tr>       
+      <tr>
+        <td>Descirption</td>
+        <td>
+          <textarea id="description" name="description">
+<%= rule.description %></textarea
+          >
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <button type="submit" id="submitButton" disabled>Save</button>
+
+</form>
+
+<script>
+  // Validate fields before submit
+  function checkFormValidity() {
+    var points = document.getElementById("points").value;
+    var type = document.getElementById("type").value;
+    var description = document.getElementById("description").value;
+
+    // verify fields before enabling save button
+    if (
+      points !== "" &&
+      type !== "" &&
+      description !== "" &&
+      points > 0
+    ) {
+      document.getElementById("submitButton").removeAttribute("disabled"); // enable
+    } else {
+      document
+        .getElementById("submitButton")
+        .setAttribute("disabled", "disabled");
+    }
+  }
+
+  // verification on input
+  document
+    .getElementById("points")
+    .addEventListener("input", checkFormValidity);
+  document.getElementById("type").addEventListener("input", checkFormValidity);
+  document
+    .getElementById("description")
+    .addEventListener("input", checkFormValidity);
+</script>
+
+<%- include('../partials/foot') %>

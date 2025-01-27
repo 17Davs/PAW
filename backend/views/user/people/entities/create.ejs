@@ -1,0 +1,86 @@
+<%- include('../../../partials/head') %> <%- include('../../../partials/nav') %>
+<%- include('../../../partials/nav2') %>
+
+<div>
+  <form action="/user/entities/create" method="post">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name: </label>
+      <input type="text" class="form-control" id="name" name="name" />
+      <div class="form-text name error"></div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email: </label>
+      <input type="email" class="form-control" id="email" name="email" />
+      <div class="form-text email error"></div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description: </label>
+      <textarea
+        name="description"
+        class="form-control"
+        id="description"
+        cols="30"
+        rows="10"
+      ></textarea>
+      <div class="form-text description error"></div>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Image: </label>
+      <input type="text" class="form-control" id="image" name="image" />
+      <div class="form-text image error"></div>
+    </div>
+
+    <button class="btn btn-primary">Create</button>
+  </form>
+</div>
+
+<script>
+  const form = document.querySelector("form");
+  const nErr = document.querySelector(".name.error");
+  const eErr = document.querySelector(".email.error");
+  const dErr = document.querySelector(".description.error");
+  const iErr = document.querySelector(".imagem.error");
+
+  form.addEventListener("submit", async (e) => {
+    nErr.textContent = "";
+    eErr.textContent = "";
+    dErr.textContent = "";
+    iErr.textContent = "";
+
+    const name = form.name.value;
+    const email = form.email.value;
+    const description = form.description.value;
+    //const image = form.image.value; image??
+
+    fetch("/user/entities/create", {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        email,
+        description,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.errs) {
+          nErr.textContent = data.errs.name;
+          eErr.textContent = data.errs.email;
+          dErr.textContent = data.errs.description;
+          //iErr.textContent = data.errs.image;
+        }
+        if (data.entity) {
+          location.assign("/user/entities/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+</script>
+<%- include('../../../partials/foot') %>
