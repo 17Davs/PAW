@@ -1,0 +1,37 @@
+<div class="entity-list-container">
+  <h2>Entities Receiving Donations</h2>
+  <div class="new-donation-content">
+    <p class="entity-description">
+      Help make a difference by supporting verified entities that rely on
+      donations.
+    </p>
+    <button class="custom-button" (click)="navigateToNewDonation()">
+      Donate Now
+    </button>
+  </div>
+  <div *ngIf="selectedEntity">
+    <div class="entity-details">
+      <app-entity-details
+        *ngIf="selectedEntity"
+        [entity]="selectedEntity"
+      ></app-entity-details>
+      <button class="back-button" (click)="deselectEntity()">
+        Back to List
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!selectedEntity">
+    <div class="entity-grid">
+      <div
+        class="entity-grid-item"
+        *ngFor="let entity of entities; let i = index"
+      >
+        <p><strong>ID:</strong> {{ entity._id }}</p>
+        <p><strong>Name:</strong> {{ entity.name }}</p>
+        <p><strong>Email:</strong> {{ entity.email }}</p>
+        <button class="view-button" (click)="selectEntity(i)">View</button>
+      </div>
+    </div>
+  </div>
+</div>

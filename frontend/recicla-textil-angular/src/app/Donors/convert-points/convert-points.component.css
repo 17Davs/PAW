@@ -1,0 +1,65 @@
+.convert-points-container {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.convert-points-content {
+  margin-bottom: 20px;
+}
+
+.input-container {
+  margin-bottom: 15px;
+}
+
+.input-container label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.rule-container {
+  margin-bottom: 10px;
+}
+
+.rule-title {
+  font-size: 18px;
+  color: #28a745; /* Verde */
+  margin-bottom: 5px;
+}
+
+.rule-container p {
+  font-size: 14px;
+  color: #333;
+}
+
+.convert-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.convert-button:hover {
+  background-color: #218838;
+}
+
+.convert-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

@@ -1,0 +1,92 @@
+<div class="donation-page-container">
+  <div class="new-donation-container">
+    <h2>Create New Donation</h2>
+    <form #donationForm="ngForm" (ngSubmit)="createDonation(donationForm)">
+      <label for="weight">Weight:</label>
+      <input
+        required
+        type="number"
+        id="weight"
+        name="weight"
+        [(ngModel)]="weight"
+        #weightModel="ngModel"
+        (input)="calculatePoints()"
+      />
+      <div
+        *ngIf="weightModel.touched && weightModel.invalid"
+        class="error-message"
+      >
+        <div *ngIf="weightModel.errors?.['required']" class="invalid-input">
+          The field is required
+        </div>
+      </div>
+
+      <label for="quantity">Number of Items:</label>
+      <input
+        required
+        type="number"
+        id="quantity"
+        name="quantity"
+        [(ngModel)]="quantity"
+        #quantityModel="ngModel"
+        (input)="calculatePoints()"
+      />
+      <div
+        *ngIf="quantityModel.touched && quantityModel.invalid"
+        class="error-message"
+      >
+        <div *ngIf="quantityModel.errors?.['required']" class="invalid-input">
+          The field is required
+        </div>
+      </div>
+
+      <label for="receivingEntity">Select Entity:</label>
+      <select
+        required
+        id="receivingEntity"
+        name="receivingEntity"
+        [(ngModel)]="receivingEntity"
+        #entityModel="ngModel"
+      >
+        <option *ngFor="let entity of entities" [value]="entity._id">
+          {{ entity.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="entityModel.touched && entityModel.invalid"
+        class="error-message"
+      >
+        <div *ngIf="entityModel.errors?.['required']" class="invalid-input">
+          The field is required
+        </div>
+      </div>
+
+      <label for="pickupPoint">Select Pickup Point:</label>
+      <select
+        id="pickupPoint"
+        name="pickupPoint"
+        [(ngModel)]="pickupPoint"
+        #pickupModel="ngModel"
+      >
+        <option *ngFor="let pickup of pickups" [value]="pickup._id">
+          {{ pickup.name }}
+        </option>
+      </select>
+
+      <label for="points">Points to Gain:</label>
+      <input
+        id="points"
+        name="points"
+        type="number"
+        [(ngModel)]="pointsGained"
+        disabled
+      />
+
+      <button type="submit" [disabled]="donationForm.invalid">Create</button>
+    </form>
+  </div>
+
+  <div class="point-rules">
+    <app-point-rules></app-point-rules>
+  </div>
+</div>

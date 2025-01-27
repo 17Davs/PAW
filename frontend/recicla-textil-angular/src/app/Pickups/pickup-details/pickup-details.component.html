@@ -1,0 +1,18 @@
+<ng-container *ngIf="pickup" class="pickup-details">
+  <div class="pickup-card">
+    <div class="pickup-header">
+      <h3 class="pickup-title">Pickup Details</h3>
+    </div>
+    <div class="pickup-content">
+      <p><strong>ID:</strong> {{ pickup._id }}</p>
+      <p><strong>Name:</strong> {{ pickup.name }}</p>
+      <p>
+        <strong>Address:</strong> {{ pickup.address.street }},
+        {{ pickup.address.city }} - {{ pickup.address.postalCode }}
+      </p>
+      <p>
+        <strong>Status:</strong> {{ pickup.active ? "Active" : "Inactive" }}
+      </p>
+    </div>
+  </div>
+</ng-container>

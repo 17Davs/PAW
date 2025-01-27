@@ -1,0 +1,36 @@
+/* Estilos para a card de detalhes da entidade */
+
+.entity-details {
+  margin-bottom: 20px;
+}
+
+.entity-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.entity-header {
+  background-color: #e9ecef;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.entity-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.entity-content {
+  padding: 15px;
+}
+
+.entity-content p {
+  margin: 8px 0;
+}
+
+.entity-content strong {
+  font-weight: bold;
+}

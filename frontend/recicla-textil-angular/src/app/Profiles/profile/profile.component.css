@@ -1,0 +1,20 @@
+.profile-container {
+  padding: 20px;
+}
+
+.donor-card {
+  background-color: #f0fff0; /* Verde claro */
+}
+
+.entity-card {
+  background-color: #f5f5f5; /* Cinza claro */
+}
+
+button {
+  background-color: #4caf50; /* Verde */
+  color: white;
+}
+
+button:hover {
+  background-color: #45a049; /* Verde escuro */
+}

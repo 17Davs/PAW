@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Login</h2>
+  </div>
+  <div class="card-content">
+    <form class="form">
+      <table class="full-width" cellspacing="0">
+        <tr>
+          <td>
+            <div class="form-field full-width">
+              <input
+                class="input"
+                placeholder="Email"
+                [(ngModel)]="email"
+                name="email"
+                required
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-field full-width">
+              <input
+                class="input"
+                placeholder="Password"
+                [(ngModel)]="password"
+                type="password"
+                name="password"
+                required
+              />
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="card-actions">
+    <button class="button primary" (click)="login()">Login</button>
+    <a class="button accent" href="/register/donor">Register Donors</a>
+    <a class="button accent" href="/register/entity">Register Entities</a>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<h2>My Donations</h2>
+
+<div class="new-donation-content">
+  <p class="new-donations-text">Make a difference with your donation today!</p>
+  <button class="custom-button" (click)="navigateToNewDonation()">
+    Donate Now
+  </button>
+</div>
+
+<div class="filter-container">
+  <label for="statusFilter">Filter by Status: </label>
+  <select
+    id="statusFilter"
+    [(ngModel)]="selectedStatus"
+    (change)="filterDonations()"
+  >
+    <option *ngFor="let status of statuses" [value]="status">
+      {{ status }}
+    </option>
+  </select>
+</div>
+
+<div *ngIf="selectedDonation">
+  <app-donation-details [donation]="selectedDonation"></app-donation-details>
+  <button class="custom-button" (click)="deselectDonation()">
+    Back to List
+  </button>
+</div>
+
+<div *ngIf="!selectedDonation">
+  <table class="overview-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <ng-container *ngIf="userType === 'donor'; else entityHeader">
+          <th>Entity</th>
+        </ng-container>
+        <ng-template #entityHeader>
+          <th>Donor</th>
+        </ng-template>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let donation of filteredDonations; index as i">
+        <td>{{ donation._id }}</td>
+        <!-- Condicional para exibir 'Entity' ou 'Donor' -->
+        <ng-container *ngIf="userType === 'donor'; else entityCell">
+          <td>{{ donation.receivingEntity.name }}</td>
+        </ng-container>
+        <ng-template #entityCell>
+          <td>{{ donation.donor.email }}</td>
+        </ng-template>
+        <td>{{ donation.status.name }}</td>
+        <td>
+          <button class="custom-button" (click)="selectDonation(i)">
+            View
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

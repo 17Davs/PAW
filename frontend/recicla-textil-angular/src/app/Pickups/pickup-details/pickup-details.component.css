@@ -1,0 +1,34 @@
+.pickup-details {
+  margin-bottom: 20px;
+}
+
+.pickup-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.pickup-header {
+  background-color: #e9ecef;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.pickup-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.pickup-content {
+  padding: 15px;
+}
+
+.pickup-content p {
+  margin: 8px 0;
+}
+
+.pickup-content strong {
+  font-weight: bold;
+}

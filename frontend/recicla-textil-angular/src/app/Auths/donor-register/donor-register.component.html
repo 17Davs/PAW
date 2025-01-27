@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Donors Register</h1>
+    </div>
+    <div class="card-content">
+      <form class="form" (ngSubmit)="register()">
+        <div class="form-field">
+          <label for="name">Donor's Name</label>
+          <input
+            id="name"
+            class="input full-width"
+            type="text"
+            name="name"
+            required
+            [(ngModel)]="name"
+          />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            class="input full-width"
+            type="email"
+            name="email"
+            required
+            [(ngModel)]="email"
+          />
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            class="input full-width"
+            type="password"
+            name="password"
+            required
+            [(ngModel)]="pass"
+          />
+        </div>
+        <div class="card-actions">
+          <button type="submit" class="button primary">Register</button>
+          <a class="button accent" href="/login">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

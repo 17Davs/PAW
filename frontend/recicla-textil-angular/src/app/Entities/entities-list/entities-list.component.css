@@ -1,0 +1,126 @@
+.entity-list-container {
+  margin: 20px 0;
+  border-radius: 10px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}
+.new-donation-content {
+  margin: 20px 0;
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}
+.entity-list-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.entity-description {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.custom-button {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.custom-button:hover {
+  background-color: #218838;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.filter-container label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
+}
+
+.filter-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.filter-container select:focus {
+  outline: none;
+}
+
+.filter-container option {
+  font-family: Arial, sans-serif;
+}
+
+.entity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.entity-grid-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+}
+
+.view-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.view-button:hover {
+  background-color: #1f7934;
+}
+
+.entity-details {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+}
+
+.back-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.back-button:hover {
+  background-color: #c82333;
+}
+
+.details {
+  padding: 10px;
+}

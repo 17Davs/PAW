@@ -1,0 +1,86 @@
+<div class="container mt-3">
+  <div class="overview-section">
+    <div class="overview-grid">
+      <div class="overview-box">
+        <h2 class="overview-box-title">My Total Donations</h2>
+        <div class="overview-box-content">
+          <p>{{ myTotalDonations }}</p>
+          <button class="custom-button" (click)="navigateTo('/donations')">
+            View
+          </button>
+        </div>
+      </div>
+      <div class="overview-box">
+        <h2 class="overview-box-title">My Points</h2>
+        <div class="overview-box-content">
+          <p>{{ myPoints }}</p>
+          <button class="custom-button" (click)="navigateTo('/profile')">
+            View
+          </button>
+        </div>
+      </div>
+      <div class="overview-box">
+        <h2 class="overview-box-title">Entities</h2>
+        <div class="overview-box-content">
+          <p>{{ numEntities }}</p>
+          <button class="custom-button" (click)="navigateTo('/entities')">
+            View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="myTotalDonations > 0" class="recent-and-chart">
+    <div class="overview-section recent-donations">
+      <div class="recent-donations-header">
+        <h2 class="recent-donations-title">Recent Donations</h2>
+        <button class="custom-button" (click)="navigateTo('/donations/new')">
+          New Donation
+        </button>
+      </div>
+      <div class="recent-donations-content">
+        <table class="overview-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Entity</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let donation of recentDonations">
+              <td>{{ donation._id }}</td>
+              <td>{{ donation.receivingEntity.name }}</td>
+              <td>{{ donation.status.name }}</td>
+              <td>
+                <a [routerLink]="['/donations', donation._id]">View</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="overview-section chart-card">
+      <h2 class="chart-card-title">Average Data</h2>
+      <div class="chart-container" [chart]="combinedChart"></div>
+    </div>
+  </div>
+
+  <div *ngIf="myTotalDonations === 0" class="overview-section no-donations">
+    <h2 class="no-donations-title">No Donations Yet</h2>
+    <div class="no-donations-content">
+      <p class="no-donations-text">
+        You haven't made any donations yet. Start making a difference today!
+      </p>
+      <button
+        class="custom-button full-width"
+        (click)="navigateTo('/donations/new')"
+      >
+        New Donation
+      </button>
+    </div>
+  </div>
+</div>

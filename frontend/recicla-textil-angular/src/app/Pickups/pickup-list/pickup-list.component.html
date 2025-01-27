@@ -1,0 +1,51 @@
+<div class="pickups-container">
+  <h2>Pickup Points</h2>
+
+  <div class="new-donation-content">
+    <p class="pickup-description">
+      Explore and support local pickup points that facilitate donation pickups
+      across various cities.
+    </p>
+    <button class="custom-button" (click)="navigateToNewDonation()">
+      Donate Now
+    </button>
+  </div>
+
+  <div class="filter-container">
+    <form>
+      <label for="cityFilter">Filter by City: </label>
+      <select
+        id="cityFilter"
+        [(ngModel)]="selectedCity"
+        (change)="filterPickups()"
+        name="cityFilter"
+      >
+        <option value="">All Cities</option>
+        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+      </select>
+    </form>
+  </div>
+
+  <div *ngIf="selectedPickup" class="pickup-details">
+    <app-pickup-details
+      *ngIf="selectedPickup"
+      [pickup]="selectedPickup"
+    ></app-pickup-details>
+    <button class="back-button" (click)="deselectPickup()">Back to List</button>
+  </div>
+
+  <div *ngIf="!selectedPickup" class="pickup-grid">
+    <div
+      class="pickup-grid-item"
+      *ngFor="let pickup of filteredPickups; let i = index"
+    >
+      <p><strong>ID:</strong> {{ pickup._id }}</p>
+      <p><strong>Name:</strong> {{ pickup.name }}</p>
+      <p>
+        <strong>Address:</strong> {{ pickup.address.street }},
+        {{ pickup.address.city }} - {{ pickup.address.postalCode }}
+      </p>
+      <button class="view-button" (click)="selectPickup(i)">View</button>
+    </div>
+  </div>
+</div>

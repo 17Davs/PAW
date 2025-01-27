@@ -1,0 +1,60 @@
+<div class="wrapper">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Entities Register</h1>
+    </div>
+    <div class="card-content">
+      <form class="form" (ngSubmit)="register()">
+        <div class="form-field">
+          <label for="name">Entity's Name</label>
+          <input
+            id="name"
+            class="input full-width"
+            type="text"
+            name="name"
+            [(ngModel)]="name"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            class="input full-width"
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            class="input full-width"
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            class="input full-width"
+            name="description"
+            [(ngModel)]="description"
+            cols="30"
+            rows="10"
+            required
+          ></textarea>
+        </div>
+        <div class="card-actions">
+          <button type="submit" class="button primary">Register</button>
+          <a class="button accent" href="/login">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

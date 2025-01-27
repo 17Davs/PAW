@@ -1,0 +1,13 @@
+<ng-container *ngIf="entity" class="entity-details">
+  <div class="entity-card">
+    <div class="entity-header">
+      <h3 class="entity-title">Detalhes da Entidade</h3>
+    </div>
+    <div class="entity-content">
+      <p><strong>ID:</strong> {{ entity._id }}</p>
+      <p><strong>Name:</strong> {{ entity.name }}</p>
+      <p><strong>Email:</strong> {{ entity.email }}</p>
+      <p><strong>Description:</strong> {{ entity.description }}</p>
+    </div>
+  </div>
+</ng-container>

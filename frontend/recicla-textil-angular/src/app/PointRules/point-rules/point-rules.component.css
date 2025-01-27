@@ -1,0 +1,60 @@
+.point-rules-container {
+  font-family: Arial, sans-serif;
+  position: relative;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  padding: 1rem;
+  border-left: 1px solid #ccc;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.point-rules-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #28a745;
+  text-align: center;
+}
+
+.point-rules-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.point-rules-container ul li {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.point-rules-container ul li:last-child {
+  border-bottom: none;
+}
+
+.point-rules-container ul li strong {
+  font-weight: bold;
+  color: #28a745; /* Verde */
+}
+
+.point-rules-container ul li a {
+  color: #28a745;
+}
+
+.point-rules-container ul li a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .point-rules-container {
+    display: none;
+  }
+}

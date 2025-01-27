@@ -1,0 +1,96 @@
+.custom-button {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0; /* Ajustado para 10px acima e abaixo */
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.custom-button:hover {
+  background-color: #218838;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.filter-container label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
+}
+
+.filter-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.filter-container select:focus {
+  outline: none;
+}
+
+.filter-container option {
+  font-family: Arial, sans-serif;
+}
+
+.overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.overview-table th,
+.overview-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+.overview-table th {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+
+.overview-table td {
+  background-color: #fff;
+}
+
+.overview-table td:first-child {
+  width: 20%;
+}
+
+.overview-table td:last-child {
+  width: 15%;
+}
+
+.overview-table tr:hover {
+  background-color: #f0f0f0;
+}
+
+.new-donations-text {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.new-donation-content {
+  margin: 20px 0;
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}

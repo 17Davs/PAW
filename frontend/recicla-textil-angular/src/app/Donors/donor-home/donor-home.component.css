@@ -1,0 +1,133 @@
+.container {
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.overview-section {
+  margin-bottom: 20px;
+}
+
+.overview-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.overview-box {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #f8f9fa;
+}
+
+.overview-box-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #28a745; /* Verde */
+}
+
+.overview-box-content p {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.custom-button {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.custom-button:hover {
+  background-color: #218838;
+}
+
+.recent-donations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 15px;
+}
+
+.recent-donations-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.overview-table {
+  width: 96%;
+  margin: 0 auto; /* This centers the table horizontally */
+  color: #333;
+  border-collapse: collapse;
+}
+
+.overview-table th,
+.overview-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.chart-container {
+  width: 100%;
+  height: 300px;
+  background-color: #f8f9fa;
+}
+
+.chart-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: black; /* Preto */
+}
+
+a {
+  color: #28a745; /* Verde */
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.no-donations-text {
+  font-size: 1.2rem;
+}
+
+.recent-and-chart {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recent-donations {
+  flex: 0 0 65%;
+}
+
+.chart-card {
+  flex: 0 0 35%;
+  margin-left: 20px;
+}
+
+.no-donations-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #313131; /* Verde */
+  margin-bottom: 10px;
+}
+
+.no-donations-content {
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.custom-button.full-width {
+  width: 100%;
+}

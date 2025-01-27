@@ -1,0 +1,16 @@
+<div class="donation-card">
+  <div class="donation-header">
+    <h3 class="donation-title">Donation {{ donation._id }}</h3>
+  </div>
+  <div class="donation-details">
+    <p><strong>Donor:</strong> {{ donation.donor.email }}</p>
+    <p>
+      <strong>Receiving Entity:</strong> {{ donation.receivingEntity.name }}
+    </p>
+    <p><strong>Pickup point:</strong> {{ donation.pickupPoint.name }}</p>
+    <p><strong>Quantity:</strong> {{ donation.quantity }}</p>
+    <p><strong>Weight:</strong> {{ donation.weight }}kg</p>
+    <p><strong>Status:</strong> {{ donation.status.name }}</p>
+    <p><strong>Points:</strong> {{ donation.points }}</p>
+  </div>
+</div>

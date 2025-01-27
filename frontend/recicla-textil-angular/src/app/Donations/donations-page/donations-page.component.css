@@ -1,0 +1,14 @@
+.main-page-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.left-pane {
+  flex: 3;
+  margin-right: 1rem;
+}
+
+.right-pane {
+  flex: 1;
+}

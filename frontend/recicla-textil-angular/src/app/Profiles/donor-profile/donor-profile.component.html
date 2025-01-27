@@ -1,0 +1,35 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1 class="profile-title">Welcome, {{ donor.name }}!</h1>
+  </div>
+  <div class="profile-content">
+    <div class="profile-section">
+      <h2 class="section-title">Personal Information</h2>
+      <div class="detail">
+        <p><strong>Name:</strong> {{ donor.name }}</p>
+        <p><strong>Email:</strong> {{ donor.email }}</p>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h2 class="section-title">Account Details</h2>
+      <div class="detail">
+        <p><strong>Points:</strong> {{ donor.points }}</p>
+        <p><strong>Credit:</strong> {{ donor.credit }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="profile-actions">
+    <button class="convert-button" (click)="toggleConvertPoints()">
+      {{ showConvertPoints ? "Back" : "Convert Points" }}
+    </button>
+  </div>
+
+  <app-convert-points
+    *ngIf="showConvertPoints"
+    [userId]="donor._id"
+    [userPoints]="donor.points"
+    (donorUpdated)="onDonorUpdated($event)"
+  >
+  </app-convert-points>
+</div>

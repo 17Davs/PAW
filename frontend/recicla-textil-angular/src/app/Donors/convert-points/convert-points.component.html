@@ -1,0 +1,27 @@
+<div class="convert-points-container">
+  <div class="convert-points-content">
+    <div class="input-container">
+      <label for="points">Points to Convert</label>
+      <input
+        type="number"
+        id="points"
+        name="points"
+        [(ngModel)]="qtd"
+        [disabled]="!rules.length"
+      />
+    </div>
+    <div class="rule-container" *ngIf="rules.length > 0">
+      <h3 class="rule-title">Conversion Rule</h3>
+      <p>{{ rules[0].description }}</p>
+    </div>
+  </div>
+  <div class="convert-points-actions">
+    <button
+      class="convert-button"
+      (click)="convertPoints()"
+      [disabled]="!rules.length || qtd < rules[0].points || qtd > userPoints"
+    >
+      Convert Points
+    </button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="point-rules-container">
+  <h2>Point Rules</h2>
+  <ul>
+    <li *ngFor="let rule of pointRules">
+      <strong>{{ rule.criteria }}</strong
+      >: {{ rule.description }} ({{ rule.points }} points)
+    </li>
+  </ul>
+</div>

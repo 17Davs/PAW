@@ -1,0 +1,7 @@
+<div class="custom-toolbar">
+  <div class="toolbar-title">Recicla Têxtil</div>
+  <div class="toolbar-buttons" *ngIf="isLoggedIn()">
+    <button mat-button routerLink="/home">Home</button>
+    <button mat-button (click)="logout()">Log-Out</button>
+  </div>
+</div>
