@@ -27,7 +27,7 @@ var rulesRouterAPI = require("./routes/API/rules");
 const { checkUser } = require("./public/javascripts/auth");
 
 //db connection
-const uri = "mongodb+srv://appuser:appuser@cluster0.rqlins9.mongodb.net/demo1";
+const uri = "mongodb+srv://appuser:passwored@cluster0.rqlins9.mongodb.net/demo1";
 mongoose.connect(uri).then((res) => {
   console.log("conected to db!");
   console.log("http://localhost:3000");
